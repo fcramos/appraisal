@@ -1,0 +1,41 @@
+{% extends 'candidacy/base.html' %}
+
+{% block content %}
+<div class="row">
+    <form method="post" class="col-md-6 col-md-offset-3">
+        {% csrf_token %}
+        <fieldset>
+            <legend>Dados do candidato:</legend>
+            {% for field in form %}
+            {% if field == form.name or field == form.email %}
+            <div class="form-group {% if field.errors %}has-error{% endif %}">
+                <label for="{{field.id_for_label}}">{% if field.field.required %}(*){% endif %}{{field.label}}</label>
+                {{ field }}
+                {% for error in field.errors %}
+                <span class="help-block">{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endfor %}
+        </fieldset>
+        <fieldset>
+            <legend>Avalie seu conhecimento de 0 a 10 nos seguintes itens:</legend>
+            {% for field in form %}
+            {% if field != form.name and field != form.email %}
+            <div class="form-group">
+                <label for="{{field.id_for_label}}">{% if field.field.required %}(*){% endif %}{{field.label}}</label>
+                <br>
+                {% for choice in form.CHOICES %}
+                <label class="radio-inline">
+                    <input type="radio" name="{{ field.name }}" id="id_{{ field.name }}_{{ choice.0 }}" value="{{ choice.0 }}"> {{ choice.1 }}
+                </label>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endfor %}
+        </fieldset>
+        <input class="btn btn-warning" type="reset" value="Limpar">
+        <input class="btn btn-success" type="submit" value="Enviar">
+    </form>
+</div>
+{% endblock content %}
