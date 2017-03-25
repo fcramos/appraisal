@@ -1,0 +1,4 @@
+Django==1.10.*
+dj-database-url==0.3.*
+python-decouple==3.0
+Unipath==1.1

@@ -1,0 +1,5 @@
+.idea/
+media/
+*.sqlite3
+*.pyc
+*.ini
