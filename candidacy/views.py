@@ -10,6 +10,7 @@ class CandidacyView(FormView):
     success_url = '/'
 
     def form_valid(self, form):
+        form.send_email()
         messages.success(self.request, 'Candidatura enviado com sucesso')
         return super(CandidacyView, self).form_valid(form)
 
